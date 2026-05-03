@@ -4,55 +4,45 @@
 
 @section('content')
     <div class="page-header">
-        <div class="gateway-badge">⚡ Data diambil melalui API Gateway → MotorService :8001</div>
-        <h1>🏍️ Katalog Motor</h1>
-        <p>Semua data motor diambil dari MotorService melalui API Gateway</p>
+        <h1>Motor Catalog</h1>
     </div>
 
     @if($error)
         <div class="alert alert-error">❌ {{ $error }}</div>
     @endif
 
-    {{-- FILTER BY MERK --}}
     <div class="filter-bar">
-        <a href="{{ route('gateway.motors') }}" class="btn {{ !request('merk') ? 'btn-primary' : 'btn-secondary' }} btn-sm">📋 Semua</a>
-        <a href="{{ route('gateway.motors', ['merk' => 'Honda']) }}" class="btn {{ request('merk') == 'Honda' ? 'btn-honda' : 'btn-secondary' }} btn-sm">🔴 Honda</a>
-        <a href="{{ route('gateway.motors', ['merk' => 'Yamaha']) }}" class="btn {{ request('merk') == 'Yamaha' ? 'btn-yamaha' : 'btn-secondary' }} btn-sm">🔵 Yamaha</a>
-        <a href="{{ route('gateway.motors', ['merk' => 'Suzuki']) }}" class="btn {{ request('merk') == 'Suzuki' ? 'btn-accent' : 'btn-secondary' }} btn-sm">🟡 Suzuki</a>
-        <a href="{{ route('gateway.motors', ['merk' => 'Kawasaki']) }}" class="btn {{ request('merk') == 'Kawasaki' ? 'btn-primary' : 'btn-secondary' }} btn-sm">🟢 Kawasaki</a>
+        <a href="{{ route('gateway.motors') }}" class="btn {{ !request('merk') ? 'btn-primary' : 'btn-secondary' }} btn-sm clean-btn">All</a>
+        <a href="{{ route('gateway.motors', ['merk' => 'Honda']) }}" class="btn {{ request('merk') == 'Honda' ? 'btn-honda' : 'btn-secondary' }} btn-sm clean-btn">Honda</a>
+        <a href="{{ route('gateway.motors', ['merk' => 'Yamaha']) }}" class="btn {{ request('merk') == 'Yamaha' ? 'btn-yamaha' : 'btn-secondary' }} btn-sm clean-btn">Yamaha</a>
+        <a href="{{ route('gateway.motors', ['merk' => 'Suzuki']) }}" class="btn {{ request('merk') == 'Suzuki' ? 'btn-accent' : 'btn-secondary' }} btn-sm clean-btn">Suzuki</a>
+        <a href="{{ route('gateway.motors', ['merk' => 'Kawasaki']) }}" class="btn {{ request('merk') == 'Kawasaki' ? 'btn-primary' : 'btn-secondary' }} btn-sm clean-btn">Kawasaki</a>
 
         <div style="flex:1"></div>
 
-        <form action="{{ route('gateway.syncTerlaris') }}" method="POST" style="display:inline">
+        <form action="{{ route('gateway.syncTerlaris') }}" method="POST" class="inline-form">
             @csrf
-            <button type="submit" class="btn btn-accent btn-sm">🔄 Sync Terlaris</button>
+            <button type="submit" class="btn btn-accent btn-sm clean-btn">Refresh Popular</button>
         </form>
     </div>
 
-    @if(request('merk'))
-        <div style="margin-bottom:1.5rem;padding:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;gap:10px">
-            <span class="gateway-badge" style="margin:0">⚡ API Call</span>
-            <span style="font-family:monospace;font-size:0.85rem;color:var(--secondary)">Gateway GET /api/motors?merk={{ request('merk') }} → MotorService :8001</span>
-        </div>
-    @endif
+    {{-- Empty div removed for clean UI --}}
 
-    {{-- STATS --}}
-    <div class="stats-bar">
+    <div class="grid-stats mb-8">
         <div class="stat-item">
             <span class="stat-value">{{ count($motors) }}</span>
-            <span class="stat-label">{{ request('merk') ? 'Motor ' . request('merk') : 'Total Motor' }}</span>
+            <span class="stat-label">{{ request('merk') ? ucfirst(request('merk')) . ' Motors' : 'Total Motors' }}</span>
         </div>
         <div class="stat-item">
             <span class="stat-value">{{ collect($motors)->sum('stok') }}</span>
-            <span class="stat-label">Total Stok</span>
+            <span class="stat-label">Total Stock</span>
         </div>
         <div class="stat-item">
             <span class="stat-value">{{ collect($motors)->where('is_terlaris', true)->count() }}</span>
-            <span class="stat-label">Motor Terlaris</span>
+            <span class="stat-label">Popular</span>
         </div>
     </div>
 
-    {{-- MOTOR GRID --}}
     @if(count($motors) > 0)
         <div class="motor-grid">
             @foreach($motors as $motor)
@@ -81,9 +71,9 @@
                             <a href="{{ route('gateway.motor.detail', $motor['id']) }}">{{ $motor['nama'] }}</a>
                         </h3>
                         <div class="card-meta">
-                            <span class="card-tag">📅 {{ $motor['tahun'] }}</span>
-                            <span class="card-tag">🎨 {{ $motor['warna'] }}</span>
-                            <span class="card-tag">⚡ {{ $motor['tipe'] }}</span>
+                            <span class="card-tag"> {{ $motor['tahun'] }}</span>
+                            <span class="card-tag"> {{ $motor['warna'] }}</span>
+                            <span class="card-tag"> {{ $motor['tipe'] }}</span>
                         </div>
                         <div class="card-price">Rp {{ number_format($motor['harga'], 0, ',', '.') }}</div>
                         <div class="card-stock">
@@ -94,7 +84,7 @@
                             @else
                                 <span class="stock-indicator stock-empty"><span class="dot"></span> Habis</span>
                             @endif
-                            <a href="{{ route('gateway.order.create', ['motor_id' => $motor['id']]) }}" class="btn btn-primary btn-sm">🛒 Pesan</a>
+                            <a href="{{ route('gateway.order.create', ['motor_id' => $motor['id']]) }}" class="btn btn-primary btn-sm"> Pesan</a>
                         </div>
                     </div>
                 </div>
@@ -102,7 +92,6 @@
         </div>
     @else
         <div style="text-align:center;padding:4rem;color:var(--text-muted);background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border)">
-            <p style="font-size:3rem">🔍</p>
             <p>Tidak ada motor ditemukan</p>
         </div>
     @endif

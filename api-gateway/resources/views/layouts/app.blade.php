@@ -137,6 +137,23 @@
         .footer { text-align:center; padding:2rem; margin-top:3rem; border-top:1px solid var(--border); color:var(--text-muted); font-size:0.85rem; }
         .footer .service-info { display:inline-flex; align-items:center; gap:6px; margin-top:0.5rem; padding:4px 12px; background:rgba(16,185,129,0.1); border-radius:20px; font-size:0.75rem; color:var(--primary-light); }
         .filter-bar { display:flex; gap:0.75rem; margin-bottom:1.5rem; flex-wrap:wrap; align-items:center; }
+
+        /* Clean Dashboard Utilities */
+        .grid-service-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .service-icon { font-size: 1.2rem; margin-right: 0.75rem; opacity: 0.9; }
+        .table-responsive { overflow-x: auto; }
+        .section-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary); }
+        .clean-btn { transition: all 0.2s ease; }
+        .service-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        
+        /* Additional Cleanup Utilities */
+        .actions-grid { display: flex; gap: 0.5rem; flex-wrap: nowrap; align-items: center; }
+        .summary-card { position: sticky; top: 90px; height: fit-content; }
+        .form-section { margin-bottom: 1.5rem; }
+        .inline-form { display: inline-flex; gap: 0.5rem; align-items: center; }
         @media(max-width:768px) { .container{padding:1rem} .motor-grid{grid-template-columns:1fr} .detail-grid{grid-template-columns:1fr} .form-grid{grid-template-columns:1fr} .stats-bar{flex-direction:column} .navbar-links{display:none} .filter-bar{flex-direction:column} }
     </style>
 </head>
@@ -144,19 +161,15 @@
     <nav class="navbar">
         <div class="navbar-inner">
             <a href="{{ route('gateway.index') }}" class="navbar-brand">
-                <div class="logo">⚡</div>
-                <span>API Gateway</span>
-            </a>
             <div class="navbar-links">
-                <a href="{{ route('gateway.index') }}" class="{{ request()->routeIs('gateway.index') ? 'active' : '' }}">🏠 Dashboard</a>
-                <a href="{{ route('gateway.motors') }}" class="{{ request()->routeIs('gateway.motors') ? 'active' : '' }}">🏍️ Motor</a>
-                <a href="{{ route('gateway.orders') }}" class="{{ request()->routeIs('gateway.orders') ? 'active' : '' }}">📋 Transaksi</a>
-                <a href="{{ route('gateway.order.create') }}" class="{{ request()->routeIs('gateway.order.create') ? 'active' : '' }}">➕ Pesan</a>
-                <a href="{{ route('gateway.external') }}" class="{{ request()->routeIs('gateway.external') ? 'active' : '' }}">🌐 External API</a>
+                <a href="{{ route('gateway.index') }}" class="{{ request()->routeIs('gateway.index') ? 'active' : '' }}">Dashboard</a>
+                <a href="{{ route('gateway.motors') }}" class="{{ request()->routeIs('gateway.motors') ? 'active' : '' }}">Motor</a>
+                <a href="{{ route('gateway.orders') }}" class="{{ request()->routeIs('gateway.orders') ? 'active' : '' }}">Transaksi</a>
+                <a href="{{ route('gateway.order.create') }}" class="{{ request()->routeIs('gateway.order.create') ? 'active' : '' }}"> Pesan</a>
+                <a href="{{ route('gateway.external') }}" class="{{ request()->routeIs('gateway.external') ? 'active' : '' }}">External API</a>
             </div>
             <div class="navbar-badge">
                 <div class="dot"></div>
-                Port 8000 · API Gateway
             </div>
         </div>
     </nav>
@@ -169,10 +182,6 @@
         @endif
         @yield('content')
     </div>
-    <footer class="footer">
-        <p>Dealer Motor &copy; {{ date('Y') }} — API Gateway · Microservices Architecture</p>
-        <div class="service-info">⚡ Gateway :8000 → MotorService :8001 + OrderService :8002</div>
-    </footer>
     @yield('scripts')
 </body>
 </html>

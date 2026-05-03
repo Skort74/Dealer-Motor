@@ -4,52 +4,49 @@
 
 @section('content')
     <div class="page-header">
-        <h1>⚡ API Gateway Dashboard</h1>
-        <p>Monitoring dan kontrol terpusat untuk semua layanan dealer motor</p>
+        <h1>Dashboard</h1>
     </div>
 
-    {{-- SERVICE STATUS --}}
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-bottom:2rem">
+    <div class="grid-service-cards">
         <div class="detail-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-                <h3 style="margin:0">🏍️ MotorService</h3>
+            <div class="service-card-header">
+                <h3 style="margin:0;display:flex;align-items:center"><span class="service-icon">🏍️</span>MotorService</h3>
                 <span class="service-status {{ ($health['services']['motor_service']['status'] ?? 'down') === 'up' ? 'service-up' : 'service-down' }}">
-                    {{ ($health['services']['motor_service']['status'] ?? 'down') === 'up' ? '● Online' : '● Offline' }}
+                    {{ ($health['services']['motor_service']['status'] ?? 'down') === 'up' ? 'Online' : 'Offline' }}
                 </span>
             </div>
-            <div class="detail-row"><span class="label">URL</span><span class="value" style="font-family:monospace;font-size:0.8rem">localhost:8001</span></div>
-            <div class="detail-row"><span class="label">Peran</span><span class="value">Provider & Consumer</span></div>
+            <div class="detail-row"><span class="label">URL</span><span class="value" style="font-family:monospace">localhost:8001</span></div>
+            <div class="detail-row"><span class="label">Role</span><span class="value">Provider & Consumer</span></div>
             <div class="detail-row"><span class="label">Database</span><span class="value">dealer_motor_service</span></div>
-            <a href="http://localhost:8001" target="_blank" class="btn btn-secondary btn-sm" style="margin-top:0.75rem;width:100%;justify-content:center">Buka Langsung →</a>
+            <a href="http://localhost:8001" target="_blank" class="btn btn-primary btn-sm clean-btn" style="margin-top:0.75rem;width:100%;justify-content:center">Open Service →</a>
         </div>
 
         <div class="detail-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-                <h3 style="margin:0">📋 OrderService</h3>
+            <div class="service-card-header">
+                <h3 style="margin:0;display:flex;align-items:center"><span class="service-icon">📋</span>OrderService</h3>
                 <span class="service-status {{ ($health['services']['order_service']['status'] ?? 'down') === 'up' ? 'service-up' : 'service-down' }}">
-                    {{ ($health['services']['order_service']['status'] ?? 'down') === 'up' ? '● Online' : '● Offline' }}
+                    {{ ($health['services']['order_service']['status'] ?? 'down') === 'up' ? 'Online' : 'Offline' }}
                 </span>
             </div>
-            <div class="detail-row"><span class="label">URL</span><span class="value" style="font-family:monospace;font-size:0.8rem">localhost:8002</span></div>
-            <div class="detail-row"><span class="label">Peran</span><span class="value">Provider & Consumer</span></div>
+            <div class="detail-row"><span class="label">URL</span><span class="value" style="font-family:monospace">localhost:8002</span></div>
+            <div class="detail-row"><span class="label">Role</span><span class="value">Provider & Consumer</span></div>
             <div class="detail-row"><span class="label">Database</span><span class="value">dealer_order_service</span></div>
-            <a href="http://localhost:8002" target="_blank" class="btn btn-secondary btn-sm" style="margin-top:0.75rem;width:100%;justify-content:center">Buka Langsung →</a>
+            <a href="http://localhost:8002" target="_blank" class="btn btn-primary btn-sm clean-btn" style="margin-top:0.75rem;width:100%;justify-content:center">Open Service →</a>
         </div>
 
         <div class="detail-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-                <h3 style="margin:0">⚡ API Gateway</h3>
-                <span class="service-status service-up">● Online</span>
+            <div class="service-card-header">
+                <h3 style="margin:0;display:flex;align-items:center"><span class="service-icon">⚡</span>API Gateway</h3>
+                <span class="service-status service-up">Online</span>
             </div>
-            <div class="detail-row"><span class="label">URL</span><span class="value" style="font-family:monospace;font-size:0.8rem">localhost:8000</span></div>
-            <div class="detail-row"><span class="label">Peran</span><span class="value">Proxy & Router</span></div>
-            <div class="detail-row"><span class="label">Health API</span><span class="value" style="font-family:monospace;font-size:0.8rem">GET /api/health</span></div>
-            <a href="/api/health" target="_blank" class="btn btn-primary btn-sm" style="margin-top:0.75rem;width:100%;justify-content:center">Cek Health →</a>
+            <div class="detail-row"><span class="label">URL</span><span class="value" style="font-family:monospace">localhost:8000</span></div>
+            <div class="detail-row"><span class="label">Role</span><span class="value">Proxy & Router</span></div>
+            <div class="detail-row"><span class="label">Health API</span><span class="value" style="font-family:monospace">GET /api/health</span></div>
+            <a href="/api/health" target="_blank" class="btn btn-primary btn-sm clean-btn" style="margin-top:0.75rem;width:100%;justify-content:center">Check Health →</a>
         </div>
     </div>
 
-    {{-- STATISTICS --}}
-    <div class="stats-bar">
+    <div class="grid-stats">
         <div class="stat-item">
             <span class="stat-value">{{ count($motors) }}</span>
             <span class="stat-label">Total Motor</span>
@@ -68,69 +65,43 @@
         </div>
     </div>
 
-    {{-- QUICK ACCESS FILTER --}}
-    <div style="margin-bottom:2rem">
-        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">🏍️ Filter Motor by Merk (via Gateway API)</h2>
-        <div class="filter-bar">
-            <a href="{{ route('gateway.motors') }}" class="btn btn-primary btn-sm">📋 Semua Motor</a>
-            <a href="{{ route('gateway.motors', ['merk' => 'Honda']) }}" class="btn btn-honda btn-sm">🔴 Motor Honda</a>
-            <a href="{{ route('gateway.motors', ['merk' => 'Yamaha']) }}" class="btn btn-yamaha btn-sm">🔵 Motor Yamaha</a>
-            <a href="{{ route('gateway.motors', ['merk' => 'Suzuki']) }}" class="btn btn-accent btn-sm">🟡 Motor Suzuki</a>
-            <a href="{{ route('gateway.motors', ['merk' => 'Kawasaki']) }}" class="btn btn-primary btn-sm">🟢 Motor Kawasaki</a>
+    <div class="mb-8">
+        <h2 class="section-title">Filter Motors by Brand</h2>
+        <div class="filter-bar mb-6">
+            <a href="{{ route('gateway.motors') }}" class="btn btn-secondary btn-sm clean-btn">All Motors</a>
+            <a href="{{ route('gateway.motors', ['merk' => 'Honda']) }}" class="btn btn-honda btn-sm clean-btn">Honda</a>
+            <a href="{{ route('gateway.motors', ['merk' => 'Yamaha']) }}" class="btn btn-yamaha btn-sm clean-btn">Yamaha</a>
+            <a href="{{ route('gateway.motors', ['merk' => 'Suzuki']) }}" class="btn btn-accent btn-sm clean-btn">Suzuki</a>
+            <a href="{{ route('gateway.motors', ['merk' => 'Kawasaki']) }}" class="btn btn-primary btn-sm clean-btn">Kawasaki</a>
         </div>
     </div>
 
-    {{-- API ENDPOINTS --}}
-    <div class="detail-card" style="margin-bottom:2rem">
-        <h3 style="margin-bottom:1rem">📡 API Gateway Endpoints</h3>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.75rem">
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px">Semua Motor</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/motors</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:#fca5a5;text-transform:uppercase;margin-bottom:2px">Motor Honda</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/motors/honda</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:#93c5fd;text-transform:uppercase;margin-bottom:2px">Motor Yamaha</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/motors/yamaha</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px">Buat Pesanan</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">POST /api/orders</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px">Statistik</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/orders/statistics</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px">Health Check</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/health</div>
-            </div>
-        </div>
-    </div>
-
-    {{-- RECENT ORDERS --}}
     @if(count($orders) > 0)
-        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">📋 Transaksi Terbaru</h2>
-        <div class="table-wrapper">
-            <table>
-                <thead><tr><th>Kode</th><th>Pelanggan</th><th>Motor</th><th>Total</th><th>Status</th><th>Via</th></tr></thead>
-                <tbody>
-                    @foreach(array_slice($orders, 0, 5) as $order)
-                        <tr>
-                            <td style="font-weight:600;color:var(--primary-light)">{{ $order['kode_order'] }}</td>
-                            <td>{{ $order['nama_pelanggan'] }}</td>
-                            <td>{{ $order['motor_nama'] }}</td>
-                            <td><span class="price-text">Rp {{ number_format($order['total'], 0, ',', '.') }}</span></td>
-                            <td><span class="status-badge status-{{ $order['status'] }}">{{ ucfirst($order['status']) }}</span></td>
-                            <td><span class="gateway-badge">⚡ Gateway</span></td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <h2 class="section-title">Recent Transactions</h2>
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>ID</th><th>Customer</th><th>Motor</th><th>Total</th><th>Status</th><th>Via</th></tr></thead>
+                    <tbody>
+                        @foreach(array_slice($orders, 0, 5) as $order)
+                            <tr>
+                                <td style="font-weight:600;color:var(--primary-light)">{{ $order['kode_order'] }}</td>
+                                <td>{{ $order['nama_pelanggan'] }}</td>
+                                <td>{{ $order['motor_nama'] }}</td>
+                                <td><span class="price-text">Rp {{ number_format($order['total'], 0, ',', '.') }}</span></td>
+                                <td><span class="status-badge status-{{ $order['status'] }}">{{ ucfirst($order['status']) }}</span></td>
+                                <td><span class="gateway-badge">Gateway</span></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <a href="{{ route('gateway.orders') }}" class="btn btn-secondary btn-sm" style="margin-top:1rem">Lihat Semua Transaksi →</a>
+        <a href="{{ route('gateway.orders') }}" class="btn btn-primary btn-sm clean-btn mt-6">View All Transactions →</a>
     @endif
 @endsection
+
+<style>
+    a.btn { display: inline-flex !important; }
+</style>
+
