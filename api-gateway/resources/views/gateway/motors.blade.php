@@ -25,9 +25,7 @@
             <button type="submit" class="btn btn-accent btn-sm clean-btn">Refresh Popular</button>
         </form>
     </div>
-
-    {{-- Empty div removed for clean UI --}}
-
+    
     <div class="grid-stats mb-8">
         <div class="stat-item">
             <span class="stat-value">{{ count($motors) }}</span>

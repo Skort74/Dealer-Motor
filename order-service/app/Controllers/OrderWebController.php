@@ -56,9 +56,21 @@ class OrderWebController extends BaseController
         foreach ($orders as &$order) {
             $order['can_edit'] = $this->isEditable($order);
         }
+
+        $motorsFromApi = $this->motorClient->getMotors();
+
+        foreach ($motorsFromApi as &$m) {
+           
+            if (isset($m['gambar']) && !filter_var($m['gambar'], FILTER_VALIDATE_URL)) {
+                $m['gambar_url'] = "http://localhost:8001/images/motors/" . $m['gambar'];
+            } else {
+                $m['gambar_url'] = $m['gambar'] ?? base_url('images/default_motor.png');
+            }
+        }
+
         $data = [
             'orders'  => $orders,
-            'motors'  => $this->motorClient->getMotors(),
+            'motors'  => $motorsFromApi, 
             'error'   => session()->getFlashdata('error'),
             'success' => session()->getFlashdata('success'),
         ];
@@ -69,7 +81,7 @@ class OrderWebController extends BaseController
     {
         $motorId = $this->request->getGet('motor_id');
         $motors = $this->motorClient->getMotors();
-        
+
         $selectedMotor = null;
         if ($motorId) {
             foreach ($motors as $m) {
@@ -106,7 +118,7 @@ class OrderWebController extends BaseController
         $jumlah = $this->request->getPost('jumlah');
 
         $stockCheck = $this->motorClient->checkStock($motorId, $jumlah);
-        
+
         if (!$stockCheck['success']) {
             return redirect()->back()->withInput()->with('error', $stockCheck['message']);
         }
@@ -137,7 +149,7 @@ class OrderWebController extends BaseController
 
         if ($this->orderModel->insert($orderData)) {
             $decreased = $this->motorClient->decreaseStock($motorId, $jumlah);
-            
+
             if (!$decreased) {
                 $this->orderModel->update($this->orderModel->getInsertID(), ['status' => 'dibatalkan', 'catatan' => 'Gagal sinkronisasi stok']);
                 return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan sistem saat menghubungi MotorService.');

@@ -73,6 +73,7 @@
                         <h3 class="card-title">
                             <a href="{{ route('motors.show', $motor->id) }}">{{ $motor->nama }}</a>
                         </h3>
+                        
                         <div class="card-meta">
                             <span class="card-tag">📅 {{ $motor->tahun }}</span>
                             <span class="card-tag">🎨 {{ $motor->warna }}</span>

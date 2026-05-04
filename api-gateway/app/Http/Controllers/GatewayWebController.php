@@ -84,7 +84,7 @@ class GatewayWebController extends Controller
         if ($result['success']) {
             $orderId = $result['data']['data']['id'] ?? null;
             return redirect()->route('gateway.orders')
-                ->with('success', 'Pesanan berhasil dibuat melalui API Gateway! Kode: ' . ($result['data']['data']['kode_order'] ?? ''));
+                ->with('success', 'Pesanan berhasil dibuat! Kode: ' . ($result['data']['data']['kode_order'] ?? ''));
         }
 
         return redirect()->back()->withInput()
@@ -144,7 +144,7 @@ class GatewayWebController extends Controller
 
         if ($result['success']) {
             return redirect()->route('gateway.orders')
-                ->with('success', 'Pesanan berhasil diperbarui melalui API Gateway!');
+                ->with('success', 'Pesanan berhasil diperbarui!');
         }
 
         return redirect()->back()->withInput()
@@ -160,7 +160,7 @@ class GatewayWebController extends Controller
 
         if ($result['success']) {
             return redirect()->route('gateway.orders')
-                ->with('success', $result['data']['message'] ?? 'Pesanan berhasil dibatalkan melalui API Gateway!');
+                ->with('success', $result['data']['message'] ?? 'Pesanan berhasil dibatalkan!');
         }
 
         return redirect()->route('gateway.orders')
@@ -176,7 +176,7 @@ class GatewayWebController extends Controller
 
         if ($result['success']) {
             return redirect()->route('gateway.motors')
-                ->with('success', 'Label motor terlaris berhasil diperbarui melalui API Gateway!');
+                ->with('success', 'Label motor terlaris berhasil diperbarui!');
         }
 
         return redirect()->route('gateway.motors')
@@ -200,7 +200,6 @@ class GatewayWebController extends Controller
         $motorcycles = ($result['success'] && isset($result['data']['data'])) ? $result['data']['data'] : [];
         $error = $result['success'] ? null : ($result['data']['message'] ?? 'Gagal mengambil data dari API Ninjas');
         $source = $result['data']['source'] ?? 'API Ninjas';
-
-        return view('gateway.external-api', compact('motorcycles', 'make', 'year', 'error', 'source'));
+        
     }
 }
