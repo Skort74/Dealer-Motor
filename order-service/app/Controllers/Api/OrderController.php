@@ -11,10 +11,10 @@ class OrderController extends ResourceController
     protected $modelName = OrderModel::class;
     protected $format    = 'json';
 
-    private const MAX_EDIT_HOURS = 12;
+    private const MAX_EDIT_HOURS = 4;
 
     /**
-     * Check if an order is still within the editable time window (12 hours)
+     * Check if an order is still within the editable time window (4 hours)
      */
     private function isEditable(array $order): bool
     {
@@ -124,7 +124,7 @@ class OrderController extends ResourceController
     }
 
     /**
-     * PUT /api/orders/{id} — Update an order (within 12 hours)
+     * PUT /api/orders/{id} — Update an order (within 4 hours)
      */
     public function update($id = null)
     {
@@ -135,7 +135,7 @@ class OrderController extends ResourceController
 
         if (!$this->isEditable($order)) {
             return $this->respond([
-                'message' => 'Pesanan tidak dapat diedit. Batas waktu edit (12 jam) telah terlampaui atau status pesanan sudah final.'
+                'message' => 'Pesanan tidak dapat diedit. Batas waktu edit (4 jam) telah terlampaui atau status pesanan sudah final.'
             ], 403);
         }
 
@@ -195,7 +195,7 @@ class OrderController extends ResourceController
     }
 
     /**
-     * DELETE /api/orders/{id} — Cancel an order (within 12 hours)
+     * DELETE /api/orders/{id} — Cancel an order (within 4 hours)
      */
     public function cancel($id = null)
     {
@@ -206,7 +206,7 @@ class OrderController extends ResourceController
 
         if (!$this->isEditable($order)) {
             return $this->respond([
-                'message' => 'Pesanan tidak dapat dibatalkan. Batas waktu pembatalan (12 jam) telah terlampaui atau status pesanan sudah final.'
+                'message' => 'Pesanan tidak dapat dibatalkan. Batas waktu pembatalan (4 jam) telah terlampaui atau status pesanan sudah final.'
             ], 403);
         }
 

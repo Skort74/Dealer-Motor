@@ -1,25 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Pesanan - API Gateway')
+@section('title', 'Edit Pesanan - Admin')
 
 @section('content')
     <a href="{{ route('gateway.orders') }}" class="back-link">← Kembali ke Transaksi</a>
 
     <div style="margin-top:1rem">
-        <div class="gateway-badge">⚡ PUT /api/orders/{{ $order['id'] }} → Gateway → OrderService :8002</div>
+        <div class="gateway-badge">⚡ PUT /api/orders/{{ $order['id'] }} → Gateway → Dashboard :8002</div>
         <h1 style="font-size:1.5rem;font-weight:800;margin-top:0.5rem">✏️ Edit Pesanan</h1>
         <p style="color:var(--text-secondary)">Kode: <strong style="color:var(--primary-light)">{{ $order['kode_order'] }}</strong> — Motor: <strong>{{ $order['motor_nama'] }}</strong></p>
     </div>
 
     @php
         $createdAt = strtotime($order['created_at']);
-        $sisaDetik = ($createdAt + 12*3600) - time();
+        $sisaDetik = ($createdAt + 4*3600) - time();
         $sisaJam = floor($sisaDetik / 3600);
         $sisaMenit = floor(($sisaDetik % 3600) / 60);
     @endphp
     <div style="padding:0.75rem 1rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius);margin:1rem 0 1.5rem;display:flex;align-items:center;gap:10px">
         <span>⏰</span>
-        <span style="font-size:0.85rem;color:#fcd34d">Sisa waktu edit: <strong>{{ $sisaJam }}j {{ $sisaMenit }}m</strong> — Edit hanya bisa dilakukan dalam 12 jam setelah pemesanan</span>
+        <span style="font-size:0.85rem;color:#fcd34d">Sisa waktu edit: <strong>{{ $sisaJam }}j {{ $sisaMenit }}m</strong> — Edit hanya bisa dilakukan dalam 4 jam setelah pemesanan</span>
     </div>
 
     <div style="display:grid;grid-template-columns:2fr 1fr;gap:2rem">

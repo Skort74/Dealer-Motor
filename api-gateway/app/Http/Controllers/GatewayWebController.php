@@ -129,7 +129,7 @@ class GatewayWebController extends Controller
 
         if (empty($order['can_edit'])) {
             return redirect()->route('gateway.orders')
-                ->with('error', 'Pesanan tidak dapat diedit. Batas waktu 12 jam telah terlampaui atau status sudah final.');
+                ->with('error', 'Pesanan tidak dapat diedit. Batas waktu 4 jam telah terlampaui atau status sudah final.');
         }
 
         return view('gateway.order-edit', compact('order'));
@@ -165,6 +165,75 @@ class GatewayWebController extends Controller
 
         return redirect()->route('gateway.orders')
             ->with('error', $result['data']['message'] ?? 'Gagal membatalkan pesanan');
+    }
+
+    /**
+     * Form tambah motor baru
+     */
+    public function motorCreate()
+    {
+        return view('gateway.motor-create');
+    }
+
+    /**
+     * Simpan motor baru (via gateway → MotorService)
+     */
+    public function motorStore(Request $request)
+    {
+        $result = $this->gateway->proxyToMotorService('POST', '/api/motors', $request->all());
+
+        if ($result['success']) {
+            return redirect()->route('gateway.motors')
+                ->with('success', 'Motor berhasil ditambahkan!');
+        }
+
+        return redirect()->back()->withInput()
+            ->with('error', $result['data']['message'] ?? 'Gagal menambahkan motor');
+    }
+
+    /**
+     * Form edit motor
+     */
+    public function motorEdit(int $id)
+    {
+        $result = $this->gateway->proxyToMotorService('GET', "/api/motors/{$id}");
+        if (!$result['success']) {
+            abort(404, 'Motor tidak ditemukan');
+        }
+        $motor = $result['data']['data'];
+        return view('gateway.motor-edit', compact('motor'));
+    }
+
+    /**
+     * Update motor (via gateway → MotorService)
+     */
+    public function motorUpdate(Request $request, int $id)
+    {
+        $result = $this->gateway->proxyToMotorService('PUT', "/api/motors/{$id}", $request->all());
+
+        if ($result['success']) {
+            return redirect()->route('gateway.motors')
+                ->with('success', 'Motor berhasil diperbarui!');
+        }
+
+        return redirect()->back()->withInput()
+            ->with('error', $result['data']['message'] ?? 'Gagal memperbarui motor');
+    }
+
+    /**
+     * Hapus motor (via gateway → MotorService)
+     */
+    public function motorDestroy(int $id)
+    {
+        $result = $this->gateway->proxyToMotorService('DELETE', "/api/motors/{$id}");
+
+        if ($result['success']) {
+            return redirect()->route('gateway.motors')
+                ->with('success', 'Motor berhasil dihapus!');
+        }
+
+        return redirect()->route('gateway.motors')
+            ->with('error', $result['data']['message'] ?? 'Gagal menghapus motor');
     }
 
     /**

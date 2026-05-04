@@ -634,7 +634,7 @@
         <div class="navbar-inner">
             <a href="{{ route('motors.index') }}" class="navbar-brand">
                 <div class="logo">🏍️</div>
-                <span>MotorService</span>
+                <span>Katalog</span>
             </a>
             <div class="navbar-info">
                 <div class="navbar-badge">
@@ -666,7 +666,7 @@
     <footer class="footer">
         <p>Dealer Motor &copy; {{ date('Y') }} — Sistem Integrasi Antar Layanan</p>
         <div class="service-info">
-            🔗 MotorService (Provider & Consumer) · REST API · Laravel
+            🔗 Katalog (Provider & Consumer) · REST API · Laravel
         </div>
     </footer>
 

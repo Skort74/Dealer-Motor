@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/app') ?>
 
-<?= $this->section('title') ?>Edit Pesanan - OrderService<?= $this->endSection() ?>
+<?= $this->section('title') ?>Edit Pesanan - Dashboard<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
     <a href="<?= base_url('/orders') ?>" class="back-link">← Kembali ke Dashboard</a>
@@ -12,13 +12,13 @@
 
     <?php 
         $createdAt = strtotime($order['created_at']);
-        $sisaDetik = ($createdAt + 12*3600) - time();
+        $sisaDetik = ($createdAt + 4*3600) - time();
         $sisaJam = floor($sisaDetik / 3600);
         $sisaMenit = floor(($sisaDetik % 3600) / 60);
     ?>
     <div style="padding:0.75rem 1rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px">
         <span>⏰</span>
-        <span style="font-size:0.85rem;color:#fcd34d">Sisa waktu edit: <strong><?= $sisaJam ?>j <?= $sisaMenit ?>m</strong> — Edit hanya bisa dilakukan dalam 12 jam setelah pemesanan</span>
+        <span style="font-size:0.85rem;color:#fcd34d">Sisa waktu edit: <strong><?= $sisaJam ?>j <?= $sisaMenit ?>m</strong> — Edit hanya bisa dilakukan dalam 4 jam setelah pemesanan</span>
     </div>
 
     <div style="display:grid;grid-template-columns:2fr 1fr;gap:2rem">

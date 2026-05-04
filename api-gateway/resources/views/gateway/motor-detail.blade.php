@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', $motor['nama'] . ' - API Gateway')
+@section('title', $motor['nama'] . ' - Admin')
 
 @section('content')
     <a href="{{ route('gateway.motors') }}" class="back-link">← Kembali ke Katalog</a>
 
     <div style="margin-top:1rem">
-        <div class="gateway-badge">⚡ GET /api/motors/{{ $motor['id'] }} → MotorService :8001</div>
+        <div class="gateway-badge">⚡ GET /api/motors/{{ $motor['id'] }} → Katalog :8001</div>
     </div>
 
     <div class="detail-grid" style="margin-top:1rem">
@@ -47,7 +47,6 @@
             @endif
 
             <div style="display:flex;gap:1rem">
-                <a href="{{ route('gateway.order.create', ['motor_id' => $motor['id']]) }}" class="btn btn-primary">🛒 Pesan Motor Ini</a>
                 <a href="{{ route('gateway.motors') }}" class="btn btn-secondary">← Katalog</a>
             </div>
         </div>

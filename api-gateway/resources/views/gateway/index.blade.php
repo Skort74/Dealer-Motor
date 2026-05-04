@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'API Gateway - Dashboard')
+@section('title', 'Admin - Dashboard')
 
 @section('content')
     <div class="page-header">
-        <h1>⚡ API Gateway Dashboard</h1>
+        <h1>⚙️ Admin Dashboard</h1>
         <p>Monitoring dan kontrol terpusat untuk semua layanan dealer motor</p>
     </div>
 
@@ -12,7 +12,7 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-bottom:2rem">
         <div class="detail-card">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-                <h3 style="margin:0">🏍️ MotorService</h3>
+                <h3 style="margin:0">🏍️ Katalog</h3>
                 <span class="service-status {{ ($health['services']['motor_service']['status'] ?? 'down') === 'up' ? 'service-up' : 'service-down' }}">
                     {{ ($health['services']['motor_service']['status'] ?? 'down') === 'up' ? '● Online' : '● Offline' }}
                 </span>
@@ -20,12 +20,12 @@
             <div class="detail-row"><span class="label">URL</span><span class="value" style="font-family:monospace;font-size:0.8rem">localhost:8001</span></div>
             <div class="detail-row"><span class="label">Peran</span><span class="value">Provider & Consumer</span></div>
             <div class="detail-row"><span class="label">Database</span><span class="value">dealer_motor_service</span></div>
-            <a href="http://localhost:8001" target="_blank" class="btn btn-secondary btn-sm" style="margin-top:0.75rem;width:100%;justify-content:center">Buka Langsung →</a>
+            <a href="http://localhost:8001" target="_blank" class="btn btn-secondary btn-sm" style="margin-top:0.75rem;width:100%;justify-content:center">Buka Katalog →</a>
         </div>
 
         <div class="detail-card">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-                <h3 style="margin:0">📋 OrderService</h3>
+                <h3 style="margin:0">📋 Dashboard</h3>
                 <span class="service-status {{ ($health['services']['order_service']['status'] ?? 'down') === 'up' ? 'service-up' : 'service-down' }}">
                     {{ ($health['services']['order_service']['status'] ?? 'down') === 'up' ? '● Online' : '● Offline' }}
                 </span>
@@ -33,12 +33,12 @@
             <div class="detail-row"><span class="label">URL</span><span class="value" style="font-family:monospace;font-size:0.8rem">localhost:8002</span></div>
             <div class="detail-row"><span class="label">Peran</span><span class="value">Provider & Consumer</span></div>
             <div class="detail-row"><span class="label">Database</span><span class="value">dealer_order_service</span></div>
-            <a href="http://localhost:8002" target="_blank" class="btn btn-secondary btn-sm" style="margin-top:0.75rem;width:100%;justify-content:center">Buka Langsung →</a>
+            <a href="http://localhost:8002" target="_blank" class="btn btn-secondary btn-sm" style="margin-top:0.75rem;width:100%;justify-content:center">Buka Dashboard →</a>
         </div>
 
         <div class="detail-card">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-                <h3 style="margin:0">⚡ API Gateway</h3>
+                <h3 style="margin:0">⚙️ Admin</h3>
                 <span class="service-status service-up">● Online</span>
             </div>
             <div class="detail-row"><span class="label">URL</span><span class="value" style="font-family:monospace;font-size:0.8rem">localhost:8000</span></div>
@@ -70,7 +70,7 @@
 
     {{-- QUICK ACCESS FILTER --}}
     <div style="margin-bottom:2rem">
-        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">🏍️ Filter Motor by Merk (via Gateway API)</h2>
+        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:1rem">🏍️ Filter Motor by Merk</h2>
         <div class="filter-bar">
             <a href="{{ route('gateway.motors') }}" class="btn btn-primary btn-sm">📋 Semua Motor</a>
             <a href="{{ route('gateway.motors', ['merk' => 'Honda']) }}" class="btn btn-honda btn-sm">🔴 Motor Honda</a>
@@ -80,36 +80,7 @@
         </div>
     </div>
 
-    {{-- API ENDPOINTS --}}
-    <div class="detail-card" style="margin-bottom:2rem">
-        <h3 style="margin-bottom:1rem">📡 API Gateway Endpoints</h3>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.75rem">
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px">Semua Motor</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/motors</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:#fca5a5;text-transform:uppercase;margin-bottom:2px">Motor Honda</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/motors/honda</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:#93c5fd;text-transform:uppercase;margin-bottom:2px">Motor Yamaha</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/motors/yamaha</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px">Buat Pesanan</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">POST /api/orders</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px">Statistik</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/orders/statistics</div>
-            </div>
-            <div style="padding:0.75rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius)">
-                <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:2px">Health Check</div>
-                <div style="font-family:monospace;font-size:0.8rem;color:var(--secondary)">GET /api/health</div>
-            </div>
-        </div>
-    </div>
+
 
     {{-- RECENT ORDERS --}}
     @if(count($orders) > 0)
@@ -125,7 +96,7 @@
                             <td>{{ $order['motor_nama'] }}</td>
                             <td><span class="price-text">Rp {{ number_format($order['total'], 0, ',', '.') }}</span></td>
                             <td><span class="status-badge status-{{ $order['status'] }}">{{ ucfirst($order['status']) }}</span></td>
-                            <td><span class="gateway-badge">⚡ Gateway</span></td>
+                            <td><span class="gateway-badge">⚙️ Admin</span></td>
                         </tr>
                     @endforeach
                 </tbody>

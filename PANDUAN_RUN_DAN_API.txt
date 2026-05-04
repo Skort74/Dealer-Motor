@@ -1,0 +1,70 @@
+=================================================================
+PANDUAN MENJALANKAN PROGRAM & DAFTAR API POSTMAN - DEALER MOTOR
+=================================================================
+
+Sistem Dealer Motor ini terdiri dari 3 layanan terpisah (Microservices):
+1. Admin (Port 8000) - Dibangun dengan Laravel (sebelumnya API Gateway)
+2. Katalog Service (Port 8001) - Dibangun dengan Laravel (sebelumnya Motor Service)
+3. Dashboard (Port 8002) - Dibangun dengan CodeIgniter 4 (sebelumnya Order Service)
+
+-----------------------------------------------------------------
+CARA MENJALANKAN PROGRAM (Jalankan di 3 Terminal Berbeda)
+-----------------------------------------------------------------
+
+Terminal 1 (Admin):
+cd api-gateway
+php artisan serve --port=8000
+
+Terminal 2 (Katalog Service):
+cd motor-service
+php artisan serve --port=8001
+
+Terminal 3 (Dashboard):
+cd order-service
+php spark serve --port=8002
+
+Setelah ketiga layanan berjalan, Anda bisa mengakses antarmuka UI di browser:
+- Admin Panel: http://localhost:8000
+- Dashboard Pelanggan: http://localhost:8002
+
+-----------------------------------------------------------------
+DAFTAR API UNTUK DITESTING DI POSTMAN
+-----------------------------------------------------------------
+
+1. KATALOG SERVICE (PORT 8001) - Master Data Motor
+[GET]    http://localhost:8001/api/motors
+         (Mendapatkan semua daftar motor)
+[GET]    http://localhost:8001/api/motors/{id}
+         (Mendapatkan detail motor spesifik)
+[POST]   http://localhost:8001/api/motors
+         (Menambah motor baru. Body JSON: nama, merk, tipe, tahun, harga, stok, warna, deskripsi)
+[PUT]    http://localhost:8001/api/motors/{id}
+         (Mengupdate motor. Body JSON: sama seperti POST)
+[DELETE] http://localhost:8001/api/motors/{id}
+         (Menghapus motor)
+[GET]    http://localhost:8001/api/motors/{id}/stock
+         (Mengecek sisa stok motor)
+[PUT]    http://localhost:8001/api/motors/{id}/stock
+         (Update stok motor. Body JSON: {"jumlah": 1, "action": "reduce" | "add"})
+
+2. DASHBOARD / ORDER SERVICE (PORT 8002) - Manajemen Pesanan
+[GET]    http://localhost:8002/api/orders
+         (Mendapatkan riwayat semua pesanan)
+[GET]    http://localhost:8002/api/orders/{id}
+         (Mendapatkan detail pesanan spesifik)
+[POST]   http://localhost:8002/api/orders
+         (Membuat pesanan baru. Body JSON: motor_id, nama_pelanggan, no_telepon, alamat, jumlah, catatan)
+[PUT]    http://localhost:8002/api/orders/{id}
+         (Mengedit pesanan. Maksimal 4 jam dari waktu pemesanan. Body JSON: nama_pelanggan, no_telepon, alamat, jumlah, catatan)
+[DELETE] http://localhost:8002/api/orders/{id}
+         (Membatalkan pesanan. Maksimal 4 jam. Stok otomatis dikembalikan ke Katalog)
+
+3. ADMIN / API GATEWAY (PORT 8000) - Endpoint Pusat
+[GET]    http://localhost:8000/api/motors
+         (Proxy untuk mendapatkan semua motor dari Katalog)
+[GET]    http://localhost:8000/api/motors/honda
+         (Mendapatkan motor khusus merk Honda, integrasi lokal & external API)
+[GET]    http://localhost:8000/api/orders/statistics
+         (Mendapatkan data statistik dari Dashboard untuk Admin)
+[GET]    http://localhost:8000/api/health
+         (Health check, memverifikasi status koneksi antar microservices)

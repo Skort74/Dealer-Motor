@@ -13,7 +13,12 @@ Route::get('/', [GatewayWebController::class, 'index'])->name('gateway.index');
 
 // Motor routes (via gateway)
 Route::get('/motors', [GatewayWebController::class, 'motors'])->name('gateway.motors');
+Route::get('/motors/create', [GatewayWebController::class, 'motorCreate'])->name('gateway.motor.create');
+Route::post('/motors', [GatewayWebController::class, 'motorStore'])->name('gateway.motor.store');
 Route::get('/motors/{id}', [GatewayWebController::class, 'motorDetail'])->name('gateway.motor.detail');
+Route::get('/motors/{id}/edit', [GatewayWebController::class, 'motorEdit'])->name('gateway.motor.edit');
+Route::put('/motors/{id}', [GatewayWebController::class, 'motorUpdate'])->name('gateway.motor.update');
+Route::delete('/motors/{id}', [GatewayWebController::class, 'motorDestroy'])->name('gateway.motor.destroy');
 Route::post('/sync-terlaris', [GatewayWebController::class, 'syncTerlaris'])->name('gateway.syncTerlaris');
 
 // Order routes (via gateway)
@@ -25,5 +30,3 @@ Route::put('/orders/{id}', [GatewayWebController::class, 'orderUpdate'])->name('
 Route::delete('/orders/{id}', [GatewayWebController::class, 'orderCancel'])->name('gateway.order.cancel');
 Route::get('/orders/{id}', [GatewayWebController::class, 'orderDetail'])->name('gateway.order.detail');
 
-// External API — Data motor dari API Ninjas
-Route::get('/external-api', [GatewayWebController::class, 'externalApi'])->name('gateway.external');

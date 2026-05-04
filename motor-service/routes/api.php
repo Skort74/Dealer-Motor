@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 // Provider endpoints - diakses oleh OrderService dan client lainnya
 Route::get('/motors', [MotorController::class, 'index']);
+Route::post('/motors', [MotorController::class, 'store']);
 Route::get('/motors/{id}', [MotorController::class, 'show']);
+Route::put('/motors/{id}', [MotorController::class, 'update']);
+Route::delete('/motors/{id}', [MotorController::class, 'destroy']);
 Route::get('/motors/{id}/stock', [MotorController::class, 'checkStock']);
 Route::put('/motors/{id}/stock', [MotorController::class, 'updateStock']);
 

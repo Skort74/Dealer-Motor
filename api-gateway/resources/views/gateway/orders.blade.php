@@ -1,21 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Transaksi - API Gateway')
+@section('title', 'Transaksi - Admin')
 
 @section('content')
     <div class="page-header">
-        <div class="gateway-badge">⚡ GET /api/orders → Gateway → OrderService :8002</div>
         <h1>📋 Riwayat Transaksi</h1>
-        <p>Data transaksi diambil dari OrderService melalui API Gateway</p>
+        <p>Semua transaksi via Admin</p>
     </div>
 
     @if($error)
         <div class="alert alert-error">❌ {{ $error }}</div>
     @endif
-
-    <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem">
-        <a href="{{ route('gateway.order.create') }}" class="btn btn-primary">➕ Buat Pesanan Baru</a>
-    </div>
 
     @if(count($orders) > 0)
         <div class="table-wrapper">
@@ -54,7 +49,6 @@
         <div style="text-align:center;padding:4rem;color:var(--text-muted);background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border)">
             <p style="font-size:3rem">📋</p>
             <p style="margin-bottom:1rem">Belum ada transaksi</p>
-            <a href="{{ route('gateway.order.create') }}" class="btn btn-primary">➕ Buat Pesanan Pertama</a>
         </div>
     @endif
 @endsection

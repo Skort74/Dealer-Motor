@@ -6,11 +6,13 @@
     <a href="{{ route('motors.index') }}" class="back-link">← Kembali ke Katalog</a>
 
     <div class="detail-container">
-        <div class="detail-image">
+        <div class="detail-image" @if($motor->gambar) style="background-image: url('{{ $motor->gambar }}'); background-size: contain; background-position: center; background-repeat: no-repeat;" @endif>
             @if($motor->is_terlaris)
                 <span class="badge-terlaris" style="position:absolute;top:16px;right:16px;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;padding:8px 18px;border-radius:20px;font-size:0.85rem;font-weight:700;z-index:2">🔥 Motor Terlaris</span>
             @endif
-            <span style="font-size:6rem">🏍️</span>
+            @if(!$motor->gambar)
+                <span style="font-size:6rem">🏍️</span>
+            @endif
         </div>
 
         <div class="detail-info">
@@ -74,7 +76,7 @@
             @endif
 
             <div style="display:flex;gap:1rem;margin-top:0.5rem">
-                <a href="http://localhost:8002/orders/create?motor_id={{ $motor->id }}" class="btn btn-primary" target="_blank">🛒 Pesan di OrderService</a>
+                <a href="http://localhost:8002/orders/create?motor_id={{ $motor->id }}" class="btn btn-primary" target="_blank">🛒 Pesan di Dashboard</a>
                 <a href="{{ route('motors.index') }}" class="btn btn-secondary">← Katalog</a>
             </div>
         </div>

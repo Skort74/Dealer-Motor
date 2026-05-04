@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="API Gateway - Dealer Motor Microservices">
-    <title>@yield('title', 'API Gateway - Dealer Motor')</title>
+    <meta name="description" content="Admin - Dealer Motor Microservices">
+    <title>@yield('title', 'Admin - Dealer Motor')</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -144,19 +144,17 @@
     <nav class="navbar">
         <div class="navbar-inner">
             <a href="{{ route('gateway.index') }}" class="navbar-brand">
-                <div class="logo">⚡</div>
-                <span>API Gateway</span>
+                <div class="logo">⚙️</div>
+                <span>Admin</span>
             </a>
             <div class="navbar-links">
                 <a href="{{ route('gateway.index') }}" class="{{ request()->routeIs('gateway.index') ? 'active' : '' }}">🏠 Dashboard</a>
-                <a href="{{ route('gateway.motors') }}" class="{{ request()->routeIs('gateway.motors') ? 'active' : '' }}">🏍️ Motor</a>
+                <a href="{{ route('gateway.motors') }}" class="{{ request()->routeIs('gateway.motors*') ? 'active' : '' }}">🏍️ Kelola Motor</a>
                 <a href="{{ route('gateway.orders') }}" class="{{ request()->routeIs('gateway.orders') ? 'active' : '' }}">📋 Transaksi</a>
-                <a href="{{ route('gateway.order.create') }}" class="{{ request()->routeIs('gateway.order.create') ? 'active' : '' }}">➕ Pesan</a>
-                <a href="{{ route('gateway.external') }}" class="{{ request()->routeIs('gateway.external') ? 'active' : '' }}">🌐 External API</a>
             </div>
             <div class="navbar-badge">
                 <div class="dot"></div>
-                Port 8000 · API Gateway
+                Port 8000 · Admin
             </div>
         </div>
     </nav>
@@ -170,8 +168,8 @@
         @yield('content')
     </div>
     <footer class="footer">
-        <p>Dealer Motor &copy; {{ date('Y') }} — API Gateway · Microservices Architecture</p>
-        <div class="service-info">⚡ Gateway :8000 → MotorService :8001 + OrderService :8002</div>
+        <p>Dealer Motor &copy; {{ date('Y') }} — Admin Panel</p>
+        <div class="service-info">Admin :8000 → Katalog :8001 + Dashboard :8002</div>
     </footer>
     @yield('scripts')
 </body>

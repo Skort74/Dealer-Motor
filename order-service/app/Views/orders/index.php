@@ -1,10 +1,10 @@
 <?= $this->extend('layouts/app') ?>
 
-<?= $this->section('title') ?>OrderService - Dashboard<?= $this->endSection() ?>
+<?= $this->section('title') ?>Dashboard - Dashboard<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
     <div class="page-header">
-        <h1>🏠 Dashboard OrderService</h1>
+        <h1>🏠 Dashboard Dashboard</h1>
         <p>Pilih motor dari katalog untuk melakukan pemesanan</p>
     </div>
 
@@ -75,7 +75,7 @@
     <div id="katalog" style="scroll-margin-top:90px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
             <h2 style="font-size:1.3rem;font-weight:700">🏍️ Katalog Motor</h2>
-            <span style="font-size:0.85rem;color:var(--text-muted)">Data dari MotorService :8001</span>
+            <span style="font-size:0.85rem;color:var(--text-muted)">Data dari Katalog :8001</span>
         </div>
 
         <?php if(!empty($motors)): ?>
@@ -130,7 +130,7 @@
         <?php else: ?>
             <div style="text-align:center;padding:3rem;color:var(--text-muted);background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border);margin-bottom:2.5rem">
                 <p style="font-size:2.5rem;margin-bottom:0.5rem">🏍️</p>
-                <p>Tidak dapat memuat katalog motor. Pastikan MotorService berjalan di port 8001.</p>
+                <p>Tidak dapat memuat katalog motor. Pastikan Katalog berjalan di port 8001.</p>
             </div>
         <?php endif; ?>
     </div>
@@ -197,17 +197,15 @@
                                         <?php if(in_array($ps, ['belum_bayar', 'menunggu']) && $order['status'] !== 'dibatalkan'): ?>
                                             <a href="<?= base_url('/orders/payment/' . $order['id']) ?>" class="btn btn-sm" style="padding:4px 10px;font-size:0.72rem;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none">💳 Bayar</a>
                                         <?php endif; ?>
-                                        <?php if(!empty($order['can_edit'])): ?>
-                                            <a href="<?= base_url('/orders/edit/' . $order['id']) ?>" class="btn btn-primary btn-sm" style="padding:4px 8px;font-size:0.72rem">✏️</a>
-                                            <form method="POST" action="<?= base_url('/orders/cancel/' . $order['id']) ?>" style="margin:0" onsubmit="return confirm('Yakin membatalkan <?= esc($order['kode_order']) ?>?')">
-                                                <?= csrf_field() ?>
-                                                <button type="submit" class="btn btn-sm" style="padding:4px 8px;font-size:0.72rem;background:rgba(239,68,68,0.2);color:#fca5a5;border:1px solid rgba(239,68,68,0.3);cursor:pointer">🗑️</button>
-                                            </form>
-                                        <?php elseif($ps === 'berhasil'): ?>
-                                            <span style="font-size:0.7rem;color:#6ee7b7">✅ Selesai</span>
-                                        <?php else: ?>
-                                            <span style="font-size:0.7rem;color:var(--text-muted)">—</span>
-                                        <?php endif; ?>
+                                        <?php 
+                                            $isDisabled = empty($order['can_edit']); 
+                                            $disabledStyle = $isDisabled ? 'opacity:0.5;pointer-events:none;' : '';
+                                        ?>
+                                        <a href="<?= base_url('/orders/edit/' . $order['id']) ?>" class="btn btn-primary btn-sm" style="padding:4px 8px;font-size:0.72rem;<?= $disabledStyle ?>">✏️ Edit (Maks 4 Jam)</a>
+                                        <form method="POST" action="<?= base_url('/orders/cancel/' . $order['id']) ?>" style="margin:0" onsubmit="return confirm('Yakin membatalkan <?= esc($order['kode_order']) ?>?')">
+                                            <?= csrf_field() ?>
+                                            <button type="submit" class="btn btn-sm" style="padding:4px 8px;font-size:0.72rem;background:rgba(239,68,68,0.2);color:#fca5a5;border:1px solid rgba(239,68,68,0.3);cursor:pointer;<?= $disabledStyle ?>" <?= $isDisabled ? 'disabled' : '' ?>>🗑️ Batalkan</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

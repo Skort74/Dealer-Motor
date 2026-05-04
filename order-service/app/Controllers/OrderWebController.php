@@ -10,7 +10,7 @@ class OrderWebController extends BaseController
     protected $orderModel;
     protected $motorClient;
 
-    private const MAX_EDIT_HOURS = 12;
+    private const MAX_EDIT_HOURS = 4;
     private const PAYMENT_DEADLINE_HOURS = 12;
 
     public function __construct()

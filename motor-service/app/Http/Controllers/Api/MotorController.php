@@ -71,6 +71,83 @@ class MotorController extends Controller
     }
 
     /**
+     * POST /api/motors
+     * Tambah motor baru
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $request->validate([
+            'nama'  => 'required|string|max:255',
+            'merk'  => 'required|string|max:100',
+            'tipe'  => 'required|string|max:100',
+            'tahun' => 'required|integer|min:2000|max:2030',
+            'warna' => 'required|string|max:100',
+            'harga' => 'required|numeric|min:0',
+            'stok'  => 'required|integer|min:0',
+        ]);
+
+        $motor = Motor::create([
+            'nama'       => $request->nama,
+            'merk'       => $request->merk,
+            'tipe'       => $request->tipe,
+            'tahun'      => $request->tahun,
+            'warna'      => $request->warna,
+            'harga'      => $request->harga,
+            'stok'       => $request->stok,
+            'deskripsi'  => $request->deskripsi,
+            'gambar'     => $request->gambar,
+            'is_terlaris' => false,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Motor berhasil ditambahkan',
+            'data'    => $motor,
+        ], 201);
+    }
+
+    /**
+     * PUT /api/motors/{id}
+     * Update data motor
+     */
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $motor = Motor::find($id);
+        if (!$motor) {
+            return response()->json(['success' => false, 'message' => 'Motor tidak ditemukan'], 404);
+        }
+
+        $motor->update($request->only([
+            'nama', 'merk', 'tipe', 'tahun', 'warna', 'harga', 'stok', 'deskripsi', 'gambar'
+        ]));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Motor berhasil diperbarui',
+            'data'    => $motor->fresh(),
+        ]);
+    }
+
+    /**
+     * DELETE /api/motors/{id}
+     * Hapus motor
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        $motor = Motor::find($id);
+        if (!$motor) {
+            return response()->json(['success' => false, 'message' => 'Motor tidak ditemukan'], 404);
+        }
+
+        $motor->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Motor berhasil dihapus',
+        ]);
+    }
+
+    /**
      * GET /api/motors/{id}/stock
      * Cek ketersediaan stok motor (diakses oleh OrderService)
      */

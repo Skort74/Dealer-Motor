@@ -1,13 +1,13 @@
 <?= $this->extend('layouts/app') ?>
 
-<?= $this->section('title') ?>Buat Pesanan - OrderService<?= $this->endSection() ?>
+<?= $this->section('title') ?>Buat Pesanan - Dashboard<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
     <a href="<?= base_url('/orders') ?>" class="back-link">← Kembali ke Dashboard</a>
 
     <div class="page-header" style="margin-top:1rem">
         <h1>➕ Buat Pesanan Baru</h1>
-        <p>Isi formulir untuk melakukan pemesanan motor. Stok akan diverifikasi langsung ke MotorService.</p>
+        <p>Isi formulir untuk melakukan pemesanan motor. Stok akan diverifikasi langsung ke Katalog.</p>
     </div>
 
     <div style="display:grid;grid-template-columns:2fr 1fr;gap:2rem">
@@ -80,19 +80,6 @@
                 </div>
             </div>
 
-            <div class="form-card" style="margin-top:1rem">
-                <h3 style="margin-bottom:0.75rem;color:var(--text-primary)">🔗 Komunikasi</h3>
-                <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.8">
-                    <p>📡 <strong>Consumer → MotorService</strong></p>
-                    <p style="font-family:monospace;color:var(--secondary);margin-bottom:0.5rem">GET :8001/api/motors/{id}/stock</p>
-                    <p>Verifikasi stok sebelum order dikonfirmasi</p>
-                    <hr style="border:none;border-top:1px solid var(--border);margin:0.75rem 0">
-                    <p>📡 <strong>Consumer → MotorService</strong></p>
-                    <p style="font-family:monospace;color:var(--secondary)">PUT :8001/api/motors/{id}/stock</p>
-                    <p>Kurangi stok setelah order berhasil</p>
-                </div>
-            </div>
-        </div>
     </div>
 <?= $this->endSection() ?>
 

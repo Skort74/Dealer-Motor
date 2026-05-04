@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Dealer Motor - Sistem Transaksi Pemesanan">
-    <title><?= $this->renderSection('title') ?: 'OrderService - Transaksi' ?></title>
+    <title><?= $this->renderSection('title') ?: 'Dashboard - Transaksi' ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <?= $this->renderSection('styles') ?>
     <style>
@@ -203,12 +203,12 @@
         <div class="navbar-inner">
             <a href="<?= base_url('/orders') ?>" class="navbar-brand">
                 <div class="logo">📋</div>
-                <span>OrderService</span>
+                <span>Dashboard</span>
             </a>
             <div class="navbar-links">
                 <a href="<?= base_url('/orders') ?>" class="<?= uri_string() == 'orders' || uri_string() == '/' ? 'active' : '' ?>">📊 Dashboard</a>
                 <a href="<?= base_url('/orders/create') ?>" class="<?= uri_string() == 'orders/create' ? 'active' : '' ?>">➕ Buat Pesanan</a>
-                <a href="http://localhost:8001" target="_blank">🏍️ MotorService</a>
+                <a href="http://localhost:8001" target="_blank">🏍️ Katalog</a>
             </div>
             <div class="navbar-badge">
                 <div class="dot"></div>
@@ -228,7 +228,7 @@
     </div>
     <footer class="footer">
         <p>Dealer Motor &copy; <?= date('Y') ?> — Sistem Integrasi Antar Layanan</p>
-        <div class="service-info">🔗 OrderService (Provider & Consumer) · REST API · CodeIgniter 4</div>
+        <div class="service-info">🔗 Dashboard (Provider & Consumer) · REST API · CodeIgniter 4</div>
     </footer>
     <?= $this->renderSection('scripts') ?>
 </body>

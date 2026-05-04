@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Pesanan - API Gateway')
+@section('title', 'Detail Pesanan - Admin')
 
 @section('content')
     <a href="{{ route('gateway.orders') }}" class="back-link">← Kembali ke Transaksi</a>
 
     <div style="margin-top:1rem;display:flex;justify-content:space-between;align-items:flex-start">
         <div>
-            <div class="gateway-badge">⚡ GET /api/orders/{{ $order['id'] }} → Gateway → OrderService :8002</div>
+            <div class="gateway-badge">⚡ GET /api/orders/{{ $order['id'] }} → Gateway → Dashboard :8002</div>
             <h1 style="font-size:1.5rem;font-weight:800;margin-top:0.5rem">📋 {{ $order['kode_order'] }}</h1>
         </div>
         <span class="status-badge status-{{ $order['status'] }}" style="font-size:0.9rem;padding:6px 16px">{{ ucfirst($order['status']) }}</span>

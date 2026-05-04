@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Buat Pesanan - API Gateway')
+@section('title', 'Buat Pesanan - Admin')
 
 @section('content')
     <a href="{{ route('gateway.motors') }}" class="back-link">← Kembali ke Katalog</a>
 
     <div class="page-header" style="margin-top:1rem">
-        <div class="gateway-badge">⚡ POST /api/orders → Gateway → OrderService :8002 → verifikasi stok ke MotorService :8001</div>
+        <div class="gateway-badge">⚡ POST /api/orders → Gateway → Dashboard :8002 → verifikasi stok ke Katalog :8001</div>
         <h1>➕ Buat Pesanan via Gateway</h1>
-        <p>Pesanan diproses melalui API Gateway. OrderService akan verifikasi stok ke MotorService secara otomatis.</p>
+        <p>Pesanan diproses melalui Admin. Dashboard akan verifikasi stok ke Katalog secara otomatis.</p>
     </div>
 
     @if($error)
@@ -66,17 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-card" style="margin-top:1rem">
-                <h3 style="margin-bottom:0.75rem">🔗 Alur Komunikasi</h3>
-                <div style="font-size:0.75rem;color:var(--text-secondary);line-height:2">
-                    <div>1️⃣ Client → <strong style="color:var(--primary-light)">Gateway :8000</strong></div>
-                    <div>2️⃣ Gateway → <strong style="color:var(--purple)">OrderService :8002</strong></div>
-                    <div>3️⃣ OrderService → <strong style="color:var(--indigo)">MotorService :8001</strong> (cek stok)</div>
-                    <div>4️⃣ OrderService → simpan order</div>
-                    <div>5️⃣ OrderService → <strong style="color:var(--indigo)">MotorService :8001</strong> (kurangi stok)</div>
-                    <div>6️⃣ Response kembali ke client via Gateway</div>
-                </div>
-            </div>
+
         </div>
     </div>
 @endsection

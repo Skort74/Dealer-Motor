@@ -3,8 +3,10 @@
 @section('title', 'Dealer Motor - Katalog Motor')
 
 @section('content')
-    <div class="page-header">
-        <h1>🏍️ Katalog Motor</h1>
+    <a href="http://localhost:8002" class="back-link">← Kembali ke Dashboard (Dashboard)</a>
+
+    <div class="page-header" style="margin-top:1rem">
+        <h1>🏍️ Katalog</h1>
         <p>Temukan motor impian Anda dari berbagai merk terkemuka</p>
     </div>
 
@@ -62,12 +64,14 @@
         <div class="motor-grid">
             @foreach($motors as $motor)
                 <div class="card">
-                    <div class="card-image">
+                    <div class="card-image" @if($motor->gambar) style="background-image: url('{{ $motor->gambar }}'); background-size: contain; background-position: center; background-repeat: no-repeat;" @endif>
                         <span class="badge-merk">{{ $motor->merk }}</span>
                         @if($motor->is_terlaris)
                             <span class="badge-terlaris">🔥 Terlaris</span>
                         @endif
-                        <span class="motor-icon">🏍️</span>
+                        @if(!$motor->gambar)
+                            <span class="motor-icon">🏍️</span>
+                        @endif
                     </div>
                     <div class="card-body">
                         <h3 class="card-title">
