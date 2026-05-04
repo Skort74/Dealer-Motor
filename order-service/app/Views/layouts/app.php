@@ -210,10 +210,6 @@
                 <a href="<?= base_url('/orders/create') ?>" class="<?= uri_string() == 'orders/create' ? 'active' : '' ?>">➕ Buat Pesanan</a>
                 <a href="http://localhost:8001" target="_blank">🏍️ MotorService</a>
             </div>
-            <div class="navbar-badge">
-                <div class="dot"></div>
-                Port 8002 · Layanan Transaksi
-            </div>
         </div>
     </nav>
     <div class="container">
@@ -226,10 +222,6 @@
         
         <?= $this->renderSection('content') ?>
     </div>
-    <footer class="footer">
-        <p>Dealer Motor &copy; <?= date('Y') ?> — Sistem Integrasi Antar Layanan</p>
-        <div class="service-info">🔗 OrderService (Provider & Consumer) · REST API · CodeIgniter 4</div>
-    </footer>
     <?= $this->renderSection('scripts') ?>
 </body>
 </html>

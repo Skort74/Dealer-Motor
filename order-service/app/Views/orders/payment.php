@@ -17,7 +17,7 @@
     </div>
 
     <!-- PAYMENT REMINDER / COUNTDOWN -->
-    <div id="payment-reminder" style="padding:1rem 1.25rem;border-radius:var(--radius-lg);margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    <div id="payment-reminder" style="padding:1rem 1.25rem;border-radius:var(--radius-lg, 12px);margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:12px;
         <?php if($expired): ?>
             background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3)
         <?php else: ?>
@@ -48,7 +48,7 @@
         </div>
     <?php endif; ?>
     <?php if(session()->getFlashdata('error')): ?>
-        <div style="padding:1rem;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px">
+        <div style="padding:1rem;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:var(--radius, 8px);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px">
             <span style="font-size:1.2rem">❌</span>
             <span style="color:#fca5a5;font-weight:600"><?= session()->getFlashdata('error') ?></span>
         </div>
@@ -181,9 +181,7 @@
     .payment-option input[type="radio"] { display:none; }
     .payment-option-content {
         display:flex;align-items:center;gap:12px;
-        padding:12px 16px;border-radius:var(--radius);
-        border:2px solid var(--border);background:var(--bg-surface);
-        transition:all 0.2s;
+        padding:12px 16px;border-radius:var(--radius, 8px);
     }
     .payment-option input:checked + .payment-option-content {
         border-color:var(--primary);background:rgba(139,92,246,0.1);
