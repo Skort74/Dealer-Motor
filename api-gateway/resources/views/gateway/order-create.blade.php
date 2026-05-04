@@ -51,7 +51,7 @@
                     <label>Notes (optional)</label>
                     <textarea name="catatan" class="form-control">{{ old('catatan') }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary clean-btn" style="width:100%">Order via Gateway</button>
+                <button type="submit" class="btn btn-primary clean-btn" style="width:10%">Order</button>
             </form>
         </div>
 

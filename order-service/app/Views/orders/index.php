@@ -58,11 +58,7 @@
         </div>
     <?php endif; ?>
 
-    <!-- ===== MENU NAVIGASI ===== -->
     <div style="display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap">
-        <a href="#katalog" class="btn btn-primary" style="flex:1;justify-content:center;min-width:200px">
-            🏍️ Katalog Motor
-        </a>
         <a href="<?= base_url('/orders/create') ?>" class="btn btn-success" style="flex:1;justify-content:center;min-width:200px">
             ➕ Form Pemesanan
         </a>
@@ -71,11 +67,9 @@
         </a>
     </div>
 
-    <!-- ===== KATALOG MOTOR ===== -->
     <div id="katalog" style="scroll-margin-top:90px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
             <h2 style="font-size:1.3rem;font-weight:700">🏍️ Katalog Motor</h2>
-            <span style="font-size:0.85rem;color:var(--text-muted)">Data dari MotorService :8001</span>
         </div>
 
         <?php if(!empty($motors)): ?>
@@ -135,7 +129,6 @@
         <?php endif; ?>
     </div>
 
-    <!-- ===== RIWAYAT TRANSAKSI ===== -->
     <div id="riwayat" style="scroll-margin-top:90px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
             <h2 style="font-size:1.3rem;font-weight:700">📋 Riwayat Transaksi</h2>
@@ -166,7 +159,7 @@
                                 <td><span class="price-text">Rp <?= number_format($order['total'], 0, ',', '.') ?></span></td>
                                 <td>
                                     <span class="status-badge status-<?= esc($order['status']) ?>">
-                                        <?= ucfirst(esc($order['status'])) ?>
+                                        <?= is_string($order['status']) ? ucfirst(esc($order['status'])) : '' ?>
                                     </span>
                                 </td>
                                 <td>
